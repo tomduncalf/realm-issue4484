@@ -6,8 +6,7 @@
  * @flow strict-local
  */
 
-import React from 'react';
-import type {Node} from 'react';
+import React, {useEffect} from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -53,44 +52,38 @@ const Section = ({children, title}): Node => {
   );
 };
 
-const AddressSchema = {
-  name: 'Address',
-  embedded: true, // default: false
-  properties: {
-    street: 'string?',
-    city: 'string?',
-    country: 'string?',
-    postalCode: 'string?',
-  },
-};
-const ContactSchema = {
-  name: 'Contact',
-  primaryKey: '_id',
-  properties: {
-    _id: 'objectId',
-    name: 'string',
-    address: 'Address', // Embed a single object
-  },
-};
+class AddressSchema extends Realm.Object {
+  static schema = {
+    name: 'Address',
+    embedded: true, // default: false
+    properties: {
+      street: 'string?',
+      city: 'string?',
+      country: 'string?',
+      postalCode: 'string?',
+    },
+  };
+}
+
+class ContactSchema extends Realm.Object {
+  static schema = {
+    name: 'Contact',
+    primaryKey: '_id',
+    properties: {
+      _id: 'objectId',
+      name: 'string',
+      // address: 'Address', // Embed a single object
+      address: {
+        type: 'list',
+        objectType: 'Address',
+      },
+    },
+  };
+}
 
 const realm = new Realm({
   schema: [ContactSchema, AddressSchema],
 });
-
-realm.write(() => {
-  realm.create('Contact', {
-    _id: BSON.ObjectID(),
-    name: 'name',
-    address: {
-      street: 'street',
-      city: 'city',
-      country: 'country',
-      postalCode: 'postalCode',
-    },
-  });
-});
-
-console.log(realm.objects('Contact')[0]);
 
 const App: () => Node = () => {
   const isDarkMode = useColorScheme() === 'dark';
@@ -98,6 +91,41 @@ const App: () => Node = () => {
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
+
+  useEffect(() => {
+    realm.write(() => {
+      realm.deleteAll();
+
+      // realm.create('Contact', {
+      //   _id: BSON.ObjectID(),
+      //   name: 'name',
+      //   address: {
+      //     street: 'street',
+      //     city: 'city',
+      //     country: 'country',
+      //     postalCode: 'postalCode',
+      //   },
+      // });
+
+      realm.create('Contact', {
+        _id: BSON.ObjectID(),
+        name: 'name',
+        address: [
+          {
+            street: 'street',
+            city: 'city',
+            country: 'country',
+            postalCode: 'postalCode',
+          },
+        ],
+      });
+    });
+
+    const contact = realm.objects('Contact')[0];
+    console.log(realm.objects('Contact'));
+    console.log(contact);
+    console.log(contact.address);
+  }, []);
 
   return (
     <SafeAreaView style={backgroundStyle}>
