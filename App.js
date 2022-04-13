@@ -6,6 +6,8 @@
  * @flow strict-local
  */
 
+const USE_REALM_REACT = true;
+
 import React, {useEffect} from 'react';
 import {
   SafeAreaView,
@@ -25,6 +27,7 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 import Realm, {BSON} from 'realm';
+import {createRealmContext} from '@realm/react';
 
 const Section = ({children, title}): Node => {
   const isDarkMode = useColorScheme() === 'dark';
@@ -81,9 +84,19 @@ class ContactSchema extends Realm.Object {
   };
 }
 
-const realm = new Realm({
-  schema: [ContactSchema, AddressSchema],
-});
+let realm, RealmProvider, useRealm, useQuery;
+
+if (USE_REALM_REACT) {
+  const result = createRealmContext({
+    schema: [ContactSchema.schema, AddressSchema.schema],
+  });
+  RealmProvider = result.RealmProvider;
+  useRealm = result.useRealm;
+} else {
+  realm = new Realm({
+    schema: [ContactSchema.schema, AddressSchema.schema],
+  });
+}
 
 const App: () => Node = () => {
   const isDarkMode = useColorScheme() === 'dark';
@@ -92,20 +105,13 @@ const App: () => Node = () => {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
 
+  if (USE_REALM_REACT) {
+    realm = useRealm();
+  }
+
   useEffect(() => {
     realm.write(() => {
       realm.deleteAll();
-
-      // realm.create('Contact', {
-      //   _id: BSON.ObjectID(),
-      //   name: 'name',
-      //   address: {
-      //     street: 'street',
-      //     city: 'city',
-      //     country: 'country',
-      //     postalCode: 'postalCode',
-      //   },
-      // });
 
       realm.create('Contact', {
         _id: BSON.ObjectID(),
@@ -177,4 +183,10 @@ const styles = StyleSheet.create({
   },
 });
 
-export default App;
+export default USE_REALM_REACT
+  ? () => (
+      <RealmProvider>
+        <App />
+      </RealmProvider>
+    )
+  : App;

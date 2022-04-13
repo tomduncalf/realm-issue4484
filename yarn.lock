@@ -711,7 +711,7 @@
     "pirates" "^4.0.5"
     "source-map-support" "^0.5.16"
 
-"@babel/runtime@^7.12.5", "@babel/runtime@^7.8.4":
+"@babel/runtime@^7.12.5", "@babel/runtime@^7.8.4", "@babel/runtime@>=7":
   "integrity" "sha512-lSiBBvodq29uShpWGNbgFdKYNiFDo5/HIYsaCEY9ff4sb10x9jizo2+pRrSyF4jKZCXqgzuqBOQKbUm90gQwJg=="
   "resolved" "https://registry.npmjs.org/@babel/runtime/-/runtime-7.17.9.tgz"
   "version" "7.17.9"
@@ -1240,6 +1240,17 @@
   "integrity" "sha512-sXc7Ndhh39O9bm7/e0eeAx8keDBO83yoG7WfH04o6PqwVaIwm4T1uT0bhTO6OizP6ojhugZlVSu9HzgUVRE1Ag=="
   "resolved" "https://registry.npmjs.org/@realm.io/common/-/common-0.1.1.tgz"
   "version" "0.1.1"
+
+"@realm/react@^0.2.1":
+  "integrity" "sha512-X1UdST8GoTWG6/JVPBSdVgi6UQ2J/9ixXzJ6AFXV6+TomtMtE82/Tb2xI/sU+wTi01y8A96zTnU+IXii9N9Itw=="
+  "resolved" "https://registry.npmjs.org/@realm/react/-/react-0.2.1.tgz"
+  "version" "0.2.1"
+  dependencies:
+    "lodash" "^4.17.21"
+    "realm" ">=10"
+  optionalDependencies:
+    "@babel/runtime" ">=7"
+    "react-native" ">=0.59"
 
 "@sideway/address@^4.1.3":
   "integrity" "sha512-7vwq+rOHVWjyXxVlR76Agnvhy8I9rpzjosTESvmhNeXOXdZZB15Fl+TI9x1SiHZH5Jv2wTGduSxFDIaq0m3DUw=="
@@ -4874,7 +4885,7 @@
   "resolved" "https://registry.npmjs.org/lodash.truncate/-/lodash.truncate-4.4.2.tgz"
   "version" "4.4.2"
 
-"lodash@^4.17.10", "lodash@^4.17.14", "lodash@^4.17.15", "lodash@^4.7.0":
+"lodash@^4.17.10", "lodash@^4.17.14", "lodash@^4.17.15", "lodash@^4.17.21", "lodash@^4.7.0":
   "integrity" "sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg=="
   "resolved" "https://registry.npmjs.org/lodash/-/lodash-4.17.21.tgz"
   "version" "4.17.21"
@@ -6065,7 +6076,7 @@
   dependencies:
     "react-native-codegen" "*"
 
-"react-native@*", "react-native@>=0.66.0", "react-native@0.68.0":
+"react-native@*", "react-native@>=0.59", "react-native@>=0.60", "react-native@>=0.66.0", "react-native@0.68.0":
   "integrity" "sha512-Qi8KpG9rqiU0hVp05GKkuRe8iAVhblYMwpnwG3wkBi99Z/X8iZ0jD1b1UW0/y6oesmCyGQAxpsB36imU8zg1AQ=="
   "resolved" "https://registry.npmjs.org/react-native/-/react-native-0.68.0.tgz"
   "version" "0.68.0"
@@ -6134,7 +6145,7 @@
     "react-shallow-renderer" "^16.13.1"
     "scheduler" "^0.20.2"
 
-"react@^16.0.0 || ^17.0.0", "react@^16.0.0 || ^17.0.0 || ^18.0.0", "react@^18.0.0", "react@17.0.2":
+"react@^16.0.0 || ^17.0.0", "react@^16.0.0 || ^17.0.0 || ^18.0.0", "react@^18.0.0", "react@>=16.8.0", "react@17.0.2":
   "integrity" "sha512-gnhPt75i/dq/z3/6q/0asP78D0u592D5L1pd7M8P+dck6Fu/jJeL6iVVK23fptSUZj8Vjf++7wXA8UNclGQcbA=="
   "resolved" "https://registry.npmjs.org/react/-/react-17.0.2.tgz"
   "version" "17.0.2"
@@ -6214,7 +6225,7 @@
   "resolved" "https://registry.npmjs.org/readline/-/readline-1.3.0.tgz"
   "version" "1.3.0"
 
-"realm-network-transport@^0.7.1":
+"realm-network-transport@^0.7.1", "realm-network-transport@^0.7.2":
   "integrity" "sha512-/5/YtZ5+ZIHIPgVFL6fRyx0/FRhmMaaF7L/h+iU8VKWGzesiBusSaeInosrM6v8MQvsW3W9ApBCeUwNW6m+8sg=="
   "resolved" "https://registry.npmjs.org/realm-network-transport/-/realm-network-transport-0.7.2.tgz"
   "version" "0.7.2"
@@ -6243,6 +6254,33 @@
     "progress" "^2.0.3"
     "prop-types" "^15.6.2"
     "realm-network-transport" "^0.7.1"
+    "request" "^2.88.0"
+    "stream-counter" "^1.0.0"
+    "sync-request" "^3.0.1"
+    "tar" "^6.0.1"
+    "url-parse" "^1.4.4"
+
+"realm@>=10":
+  "integrity" "sha512-6kS7JKs0xrFmimmiPxOhi/QGyXQg91K3I+eXIVNQYdmrcmAY5na6S1f1/MVAwd+NzA0ALl3mgGr5uCPvpiWasA=="
+  "resolved" "https://registry.npmjs.org/realm/-/realm-10.16.0.tgz"
+  "version" "10.16.0"
+  dependencies:
+    "@realm.io/common" "^0.1.1"
+    "bindings" "^1.5.0"
+    "bson" "4.4.1"
+    "clang-format" "^1.6.0"
+    "command-line-args" "^5.1.1"
+    "deepmerge" "2.1.0"
+    "fs-extra" "^4.0.3"
+    "https-proxy-agent" "^2.2.4"
+    "ini" "^1.3.7"
+    "node-addon-api" "4.2.0"
+    "node-fetch" "^2.6.1"
+    "node-machine-id" "^1.1.10"
+    "prebuild-install" "^7.0.1"
+    "progress" "^2.0.3"
+    "prop-types" "^15.6.2"
+    "realm-network-transport" "^0.7.2"
     "request" "^2.88.0"
     "stream-counter" "^1.0.0"
     "sync-request" "^3.0.1"
